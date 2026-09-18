@@ -215,9 +215,22 @@ tr:last-child td { border-bottom: none; }
 .ads-split-wrap { display: flex; height: 18px; border-radius: 6px; overflow: hidden; margin-bottom: 8px; }
 .seg-ads { background: var(--orange); width: 52.2%; }
 .seg-organic { flex: 1; background: var(--surface-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.ads-split-legend { display: flex; gap: 16px; flex-wrap: wrap; }
+.ads-split-legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 6px; }
 .ads-leg-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-sec); }
 .ads-leg-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+.ads-channels { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+.ads-ch { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+.ads-ch-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.ads-ch-name { font-weight: 700; font-size: 13px; color: var(--text); }
+.ads-ch-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+.ads-ch-metric { display: flex; flex-direction: column; gap: 2px; }
+.ads-ch-val { font-size: 18px; font-weight: 700; color: var(--orange); }
+.ads-ch-val.dim { color: var(--text-sec); opacity: 0.65; }
+.ads-ch-label { font-size: 10px; color: var(--text-sec); text-transform: uppercase; letter-spacing: 0.04em; }
+.ads-ch-pills { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; margin-bottom: 8px; }
+.ads-pill { background: var(--surface-2); border: 1px solid var(--border); border-radius: 20px; padding: 2px 9px; font-size: 11px; font-weight: 600; color: var(--text); }
+.ads-pill-muted { color: var(--text-sec); font-weight: 400; }
+.ads-paused-note { font-size: 11px; color: var(--text-sec); font-style: italic; margin-top: 4px; padding-top: 8px; border-top: 1px solid var(--border); }
 
 @media print {
   .btn-pdf { display: none !important; }
@@ -247,6 +260,7 @@ tr:last-child td { border-bottom: none; }
   .strip { grid-template-columns: 1fr 1fr; }
   .kpi-grid { grid-template-columns: 1fr; }
   .ads-grid { grid-template-columns: 1fr; }
+  .ads-channels { grid-template-columns: 1fr; }
 }
 </style>
 
@@ -327,6 +341,85 @@ tr:last-child td { border-bottom: none; }
   </div>
 </div>
 
+<div class="section-hd">Publicidad Sep 1–17</div>
+
+<div class="ads-channels">
+
+  <div class="ads-ch">
+    <div class="ads-ch-header">
+      <span class="ads-ch-name">Seller ES</span>
+      <span class="ch-tag tag-ok">Activo</span>
+    </div>
+    <div class="ads-ch-row">
+      <div class="ads-ch-metric">
+        <div class="ads-ch-val">35.336 €</div>
+        <div class="ads-ch-label">Inversión total</div>
+      </div>
+      <div class="ads-ch-metric">
+        <div class="ads-ch-val">220.004 €</div>
+        <div class="ads-ch-label">Ventas por ads</div>
+      </div>
+    </div>
+    <div class="ads-ch-row">
+      <div class="ads-ch-metric">
+        <div class="ads-ch-val">2.079 €</div>
+        <div class="ads-ch-label">Gasto medio/día</div>
+      </div>
+      <div class="ads-ch-metric">
+        <div class="ads-ch-val">12.941 €</div>
+        <div class="ads-ch-label">Ad sales medio/día</div>
+      </div>
+    </div>
+    <div class="ads-ch-pills">
+      <span class="ads-pill">ACoS 16,1%</span>
+      <span class="ads-pill">TACoS 8,4%</span>
+      <span class="ads-pill">ROAS 6,2x</span>
+    </div>
+    <div class="ads-split-wrap" style="margin-top:10px">
+      <div class="seg-ads"></div>
+      <div class="seg-organic"></div>
+    </div>
+    <div class="ads-split-legend">
+      <span class="ads-leg-item"><span class="ads-leg-dot" style="background:var(--orange)"></span>Ads 220.004 € (52,2%)</span>
+      <span class="ads-leg-item"><span class="ads-leg-dot" style="background:var(--surface-2);border:1px solid var(--border)"></span>Orgánico ~201.491 € (47,8%)</span>
+    </div>
+  </div>
+
+  <div class="ads-ch">
+    <div class="ads-ch-header">
+      <span class="ads-ch-name">Vendor ES</span>
+      <span class="ch-tag tag-warn">Pausado Sep 4</span>
+    </div>
+    <div class="ads-ch-row">
+      <div class="ads-ch-metric">
+        <div class="ads-ch-val dim">416 €</div>
+        <div class="ads-ch-label">Inversión total</div>
+      </div>
+      <div class="ads-ch-metric">
+        <div class="ads-ch-val dim">2.319 €</div>
+        <div class="ads-ch-label">Ventas por ads</div>
+      </div>
+    </div>
+    <div class="ads-ch-row">
+      <div class="ads-ch-metric">
+        <div class="ads-ch-val dim">139 €</div>
+        <div class="ads-ch-label">Gasto medio/día activo</div>
+      </div>
+      <div class="ads-ch-metric">
+        <div class="ads-ch-val dim">773 €</div>
+        <div class="ads-ch-label">Ad sales medio/día activo</div>
+      </div>
+    </div>
+    <div class="ads-ch-pills">
+      <span class="ads-pill">ACoS 18,0%</span>
+      <span class="ads-pill">ROAS 5,6x</span>
+      <span class="ads-pill ads-pill-muted">3 días activo (Sep 1–3)</span>
+    </div>
+    <div class="ads-paused-note">Sin campañas activas desde Sep 4. Datos se actualizarán si se reanudan.</div>
+  </div>
+
+</div>
+
 <div class="section-hd">Ventas diarias vs objetivo</div>
 <div class="chart-card">
   <div class="chart-title">Seller ES + Vendor ES combinado · Sep 1–17</div>
@@ -386,46 +479,6 @@ tr:last-child td { border-bottom: none; }
     <div class="ch-bar-wrap"><div class="ch-bar-fill" style="width:15.0%;opacity:0.55"></div></div>
     <div class="ch-share">15,0% del total</div>
     <span class="ch-tag tag-warn">Sin ads desde Sep 4</span>
-  </div>
-</div>
-
-<div class="section-hd">Publicidad Sep 1–17</div>
-
-<div class="ads-grid">
-  <div class="kpi">
-    <div class="kpi-label">Inversión Seller ES</div>
-    <div class="kpi-val">35.336 €</div>
-    <div class="kpi-sub">2.079 €/día · 17 días activo</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-label">Ventas por ads Seller ES</div>
-    <div class="kpi-val">220.004 €</div>
-    <div class="kpi-sub">12.941 €/día · ROAS 6,2x</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-label">ACoS Seller ES</div>
-    <div class="kpi-val amber">16,1%</div>
-    <div class="kpi-sub">TACoS 8,4% (vs ventas totales)</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-label">Vendor ES ads</div>
-    <div class="kpi-val dim">416 €</div>
-    <div class="kpi-sub">Sep 1–3 · parado desde Sep 4</div>
-  </div>
-</div>
-
-<div class="ads-bar-card">
-  <div class="ads-bar-hd">
-    <span class="ads-bar-label">Ventas orgánicas vs ventas atribuidas a ads · Seller ES</span>
-    <span class="ads-bar-pct" id="adsPct"></span>
-  </div>
-  <div class="ads-split-wrap">
-    <div class="ads-split-seg seg-ads" id="segAds"></div>
-    <div class="ads-split-seg seg-organic" id="segOrganic"></div>
-  </div>
-  <div class="ads-split-legend">
-    <span class="ads-leg-item"><span class="ads-leg-dot" style="background:var(--orange)"></span>Ads 220.004 € (52,2%)</span>
-    <span class="ads-leg-item"><span class="ads-leg-dot" style="background:var(--surface-2);border:1px solid var(--border)"></span>Orgánico ~201.491 € (47,8%)</span>
   </div>
 </div>
 
