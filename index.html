@@ -1,0 +1,512 @@
+<title>Matnature Sep 2026</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root {
+  --orange: #FF9900;
+  --orange-dim: rgba(255,153,0,0.13);
+  --text: #3F3F3F;
+  --text-sec: #5A5A5A;
+  --bg: #FFFFFF;
+  --surface: #F8F8F8;
+  --surface-2: #EFEFEF;
+  --border: #E4E4E4;
+  --red: #C0392B;
+  --red-dim: rgba(192,57,43,0.10);
+  --amber: #D4700A;
+  --green: #1E8449;
+  --green-dim: rgba(30,132,73,0.10);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --text: #EDEDED;
+    --text-sec: #909090;
+    --bg: #1A1A1A;
+    --surface: #242424;
+    --surface-2: #2C2C2C;
+    --border: #343434;
+    --orange-dim: rgba(255,153,0,0.16);
+    --red-dim: rgba(192,57,43,0.14);
+    --green-dim: rgba(30,132,73,0.14);
+    --amber: #E8891A;
+    --green: #27AE60;
+  }
+}
+:root[data-theme="dark"] {
+  --text: #EDEDED;
+  --text-sec: #909090;
+  --bg: #1A1A1A;
+  --surface: #242424;
+  --surface-2: #2C2C2C;
+  --border: #343434;
+  --orange-dim: rgba(255,153,0,0.16);
+  --red-dim: rgba(192,57,43,0.14);
+  --green-dim: rgba(30,132,73,0.14);
+  --amber: #E8891A;
+  --green: #27AE60;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Poppins', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  padding: 22px 18px 32px;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.hd-client { font-size: 20px; font-weight: 700; color: var(--text); line-height: 1.15; }
+.hd-period { font-size: 11px; font-weight: 500; color: var(--text-sec); letter-spacing: 0.05em; text-transform: uppercase; margin-top: 3px; }
+.hd-badge {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 600; color: var(--text-sec);
+  letter-spacing: 0.07em; text-transform: uppercase; padding-top: 4px;
+}
+.hd-badge::before {
+  content: ''; display: block; width: 8px; height: 8px;
+  border-radius: 50%; background: var(--orange); flex-shrink: 0;
+}
+
+.hero {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 20px 20px 16px; margin-bottom: 12px;
+}
+.hero-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  flex-wrap: wrap; gap: 6px; margin-bottom: 14px;
+}
+.hero-amount { font-size: 36px; font-weight: 700; color: var(--text); line-height: 1; }
+.hero-target-label { font-size: 13px; color: var(--text-sec); font-weight: 500; }
+.hero-target-label strong { color: var(--text); font-weight: 700; }
+.bar-wrap { background: var(--surface-2); border-radius: 999px; height: 12px; overflow: hidden; margin-bottom: 9px; position: relative; }
+.bar-fill { height: 100%; border-radius: 999px; background: var(--orange); width: 49.6%; }
+.bar-objetivo-tick {
+  position: absolute; top: 0; bottom: 0; width: 2px;
+  background: rgba(192,57,43,0.5); border-radius: 1px;
+  left: 60.00%;
+}
+.bar-meta { display: flex; justify-content: space-between; align-items: center; }
+.bar-pct { font-size: 14px; font-weight: 700; color: var(--orange); }
+.bar-gap { font-size: 12px; color: var(--text-sec); font-weight: 500; }
+
+.strip {
+  display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 8px; margin-bottom: 12px;
+}
+.strip-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 12px 10px;
+}
+.strip-num { font-size: 22px; font-weight: 700; color: var(--text); line-height: 1; margin-bottom: 3px; }
+.strip-num.accent { color: var(--orange); }
+.strip-num.red { color: var(--red); }
+.strip-num.sm { font-size: 15px; margin-top: 3px; }
+.strip-label { font-size: 10px; color: var(--text-sec); font-weight: 500; line-height: 1.4; }
+
+.kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+.kpi {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 13px 15px;
+}
+.kpi-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-sec); margin-bottom: 5px; }
+.kpi-val { font-size: 20px; font-weight: 700; color: var(--text); line-height: 1.1; }
+.kpi-val.red { color: var(--red); }
+.kpi-val.dim { color: var(--text-sec); }
+.kpi-val.amber { color: var(--amber); }
+.kpi-sub { font-size: 11px; color: var(--text-sec); margin-top: 2px; font-weight: 400; }
+
+.section-hd { font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--text-sec); margin-bottom: 8px; }
+
+.chart-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 16px; margin-bottom: 16px;
+}
+.chart-title { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.chart-sub { font-size: 11px; color: var(--text-sec); margin-bottom: 12px; }
+.chart-wrap { position: relative; height: 180px; }
+.chart-legend {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  margin-top: 10px; font-size: 11px; color: var(--text-sec);
+}
+.legend-item { display: flex; align-items: center; gap: 5px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+.legend-dot.orange { background: var(--orange); }
+.legend-dot.red { background: var(--red); opacity: 0.55; }
+
+.daily-table-wrap { overflow-x: auto; margin-bottom: 16px; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--text-sec);
+  text-align: right; padding: 5px 8px; border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+th:first-child { text-align: left; }
+td {
+  text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--border);
+  color: var(--text); white-space: nowrap;
+}
+td:first-child { text-align: left; color: var(--text-sec); font-weight: 500; }
+tr:last-child td { border-bottom: none; }
+.td-above { color: var(--green); font-weight: 600; }
+.td-below { color: var(--red); font-weight: 600; }
+.td-total { font-weight: 700; background: var(--surface-2); }
+.td-partial { color: var(--text-sec); font-style: italic; }
+
+.channels { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+.ch { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+.ch-name { font-size: 10px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-sec); margin-bottom: 7px; }
+.ch-amount { font-size: 20px; font-weight: 700; color: var(--text); line-height: 1.1; margin-bottom: 3px; }
+.ch-daily { font-size: 11px; color: var(--text-sec); font-weight: 500; margin-bottom: 9px; }
+.ch-bar-wrap { background: var(--surface-2); border-radius: 999px; height: 5px; overflow: hidden; margin-bottom: 5px; }
+.ch-bar-fill { height: 100%; border-radius: 999px; background: var(--orange); }
+.ch-share { font-size: 10px; color: var(--text-sec); font-weight: 500; }
+.ch-tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 999px; margin-top: 5px; }
+.tag-ok { background: var(--orange-dim); color: var(--orange); }
+.tag-warn { background: var(--red-dim); color: var(--red); }
+
+.proj-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
+.proj-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-bottom: 1px solid var(--border); gap: 12px; }
+.proj-row:last-child { border-bottom: none; }
+.proj-scenario { font-size: 13px; font-weight: 500; color: var(--text); }
+.proj-sub { font-size: 11px; color: var(--text-sec); font-weight: 400; display: block; margin-top: 2px; }
+.proj-val { font-size: 16px; font-weight: 700; white-space: nowrap; text-align: right; }
+.proj-val.amber { color: var(--amber); }
+.proj-val.red { color: var(--red); }
+.badge { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.04em; padding: 2px 7px; border-radius: 999px; margin-left: 6px; vertical-align: middle; }
+.badge-amber { background: rgba(212,112,10,0.13); color: var(--amber); }
+.badge-red { background: var(--red-dim); color: var(--red); }
+
+.footer { font-size: 11px; color: var(--text-sec); text-align: center; line-height: 1.6; }
+
+.note-box {
+  background: var(--orange-dim); border: 1px solid rgba(255,153,0,0.25);
+  border-radius: 8px; padding: 10px 14px; margin-bottom: 12px;
+  font-size: 11px; color: var(--text-sec); line-height: 1.6;
+}
+.note-box strong { color: var(--orange); }
+
+@media (max-width: 480px) {
+  .hero-amount { font-size: 28px; }
+  .channels { grid-template-columns: 1fr; }
+  .strip { grid-template-columns: 1fr 1fr; }
+  .kpi-grid { grid-template-columns: 1fr; }
+}
+</style>
+
+<header class="header">
+  <div>
+    <div class="hd-client">Matnature</div>
+    <div class="hd-period">Septiembre 2026 · Progreso de ventas</div>
+  </div>
+  <div class="hd-badge">Roicos</div>
+</header>
+
+<div class="hero">
+  <div class="hero-row">
+    <div class="hero-amount">496.016 €</div>
+    <div class="hero-target-label">Objetivo <strong>1.000.000 €</strong></div>
+  </div>
+  <div class="bar-wrap">
+    <div class="bar-fill"></div>
+    <div class="bar-objetivo-tick" title="Pace objetivo día 18/30"></div>
+  </div>
+  <div class="bar-meta">
+    <span class="bar-pct">49,6% completado</span>
+    <span class="bar-gap">Faltan 503.984 € · objetivo día 18: 60,0%</span>
+  </div>
+</div>
+
+<div class="note-box">
+  <strong>Sep 18 en curso</strong> — Los datos Sep 1–17 son definitivos. Actualizado automáticamente 18/09/2026.
+</div>
+
+<div class="strip">
+  <div class="strip-item">
+    <div class="strip-num">17</div>
+    <div class="strip-label">días con cierre definitivo</div>
+  </div>
+  <div class="strip-item">
+    <div class="strip-num accent">12</div>
+    <div class="strip-label">días completos restantes</div>
+  </div>
+  <div class="strip-item">
+    <div class="strip-num sm">29.177 €</div>
+    <div class="strip-label">media diaria<br>Sep 1–17</div>
+  </div>
+  <div class="strip-item">
+    <div class="strip-num red sm">-4.156 €</div>
+    <div class="strip-label">déficit diario<br>vs objetivo</div>
+  </div>
+</div>
+
+<div class="kpi-grid">
+  <div class="kpi">
+    <div class="kpi-label">Acumulado Sep 1–17</div>
+    <div class="kpi-val">496.016 €</div>
+    <div class="kpi-sub">Seller 421.495 + Vendor 74.521</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Proyección pace actual</div>
+    <div class="kpi-val amber">875.310 €</div>
+    <div class="kpi-sub">a 29.177 €/día × 30 días</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Brecha vs objetivo 1M</div>
+    <div class="kpi-val red">–124.690 €</div>
+    <div class="kpi-sub">con el pace actual</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Pace necesario Sep 18–30</div>
+    <div class="kpi-val">38.768 €/día</div>
+    <div class="kpi-sub">+33% vs ritmo actual</div>
+  </div>
+</div>
+
+<div class="section-hd">Ventas diarias vs objetivo</div>
+<div class="chart-card">
+  <div class="chart-title">Seller ES + Vendor ES combinado · Sep 1–17</div>
+  <div class="chart-sub">Barras = ventas diarias reales · Línea roja = objetivo diario 33.333€</div>
+  <div class="chart-wrap">
+    <canvas id="dailyChart"></canvas>
+  </div>
+  <div class="chart-legend">
+    <div class="legend-item"><div class="legend-dot orange"></div><span>Ventas diarias combinadas</span></div>
+    <div class="legend-item"><div class="legend-dot red"></div><span>Objetivo diario 33.333€</span></div>
+  </div>
+</div>
+
+<div class="chart-card">
+  <div class="chart-title">Acumulado real vs acumulado objetivo</div>
+  <div class="chart-sub">El área roja muestra el déficit respecto al ritmo necesario para 1M€</div>
+  <div class="chart-wrap">
+    <canvas id="cumulChart"></canvas>
+  </div>
+  <div class="chart-legend">
+    <div class="legend-item"><div class="legend-dot orange"></div><span>Acumulado real</span></div>
+    <div class="legend-item"><div class="legend-dot red"></div><span>Acumulado objetivo (pace a 1M)</span></div>
+  </div>
+</div>
+
+<div class="section-hd">Tabla diaria</div>
+<div class="daily-table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Día</th>
+      <th>Seller ES</th>
+      <th>Vendor est.</th>
+      <th>Combinado</th>
+      <th>vs Objetivo</th>
+      <th>Acumulado</th>
+    </tr>
+  </thead>
+  <tbody id="dailyTableBody"></tbody>
+</table>
+</div>
+
+<div class="section-hd">Desglose por canal · Sep 1–17</div>
+<div class="channels">
+  <div class="ch">
+    <div class="ch-name">Seller ES</div>
+    <div class="ch-amount">421.495 €</div>
+    <div class="ch-daily">24.794 €/día</div>
+    <div class="ch-bar-wrap"><div class="ch-bar-fill" style="width:85.0%"></div></div>
+    <div class="ch-share">85,0% del total</div>
+    <span class="ch-tag tag-ok">Campañas activas</span>
+  </div>
+  <div class="ch">
+    <div class="ch-name">Vendor ES</div>
+    <div class="ch-amount">74.521 €</div>
+    <div class="ch-daily">4.384 €/día · shipped</div>
+    <div class="ch-bar-wrap"><div class="ch-bar-fill" style="width:15.0%;opacity:0.55"></div></div>
+    <div class="ch-share">15,0% del total</div>
+    <span class="ch-tag tag-warn">Sin ads desde Sep 4</span>
+  </div>
+</div>
+
+<div class="section-hd">Escenarios de cierre</div>
+<div class="proj-card">
+  <div class="proj-row">
+    <div class="proj-scenario">
+      Pace actual sin cambios
+      <span class="proj-sub">29.177 €/día × 30 días mes completo</span>
+    </div>
+    <div class="proj-val amber">875.310 €<span class="badge badge-amber">–12,5%</span></div>
+  </div>
+  <div class="proj-row">
+    <div class="proj-scenario">
+      Necesario para alcanzar 1M
+      <span class="proj-sub">38.768 €/día desde Sep 18 · 13 días restantes</span>
+    </div>
+    <div class="proj-val">1.000.000 €</div>
+  </div>
+  <div class="proj-row">
+    <div class="proj-scenario">
+      Déficit acumulado vs pace objetivo
+      <span class="proj-sub">objetivo día 17: 566.661€ · real: 496.016€</span>
+    </div>
+    <div class="proj-val red">–70.645 €<span class="badge badge-red">–12,5% vs pace</span></div>
+  </div>
+</div>
+
+<p class="footer">Seller ES ventas netas sin IVA · Vendor ES shipped revenue (sell-out) · Vendor diario estimado a media plana Sep 1–17<br>Datos actualizados 18/09/2026 · Acumulado definitivo Sep 1–17 · Sep 18 en curso</p>
+
+<script>
+const SELLER = [30305, 20662, 23278, 23987, 23898, 28094, 27030, 26428, 25937, 22464, 19438, 16924, 22979, 28578, 29369, 25930, 26194];
+const VENDOR_EST = Array(17).fill(4384);
+const OBJETIVO_DIARIO = 33333;
+const labels = Array.from({length: 17}, (_, i) => `${i+1} sep`);
+
+const combined = SELLER.map((s, i) => s + VENDOR_EST[i]);
+const cumReal = [];
+const cumObj = [];
+let runReal = 0, runObj = 0;
+for (let i = 0; i < 17; i++) {
+  runReal += combined[i];
+  runObj += OBJETIVO_DIARIO;
+  cumReal.push(runReal);
+  cumObj.push(runObj);
+}
+
+const tbody = document.getElementById('dailyTableBody');
+let accum = 0;
+SELLER.forEach((s, i) => {
+  const v = VENDOR_EST[i];
+  const c = s + v;
+  accum += c;
+  const diff = c - OBJETIVO_DIARIO;
+  const row = document.createElement('tr');
+  const diffClass = diff >= 0 ? 'td-above' : 'td-below';
+  const diffSign = diff >= 0 ? '+' : '';
+  row.innerHTML = `
+    <td>${i+1} sep</td>
+    <td>${s.toLocaleString('es-ES')} €</td>
+    <td class="td-partial">${v.toLocaleString('es-ES')} €</td>
+    <td>${c.toLocaleString('es-ES')} €</td>
+    <td class="${diffClass}">${diffSign}${diff.toLocaleString('es-ES')} €</td>
+    <td>${accum.toLocaleString('es-ES')} €</td>
+  `;
+  tbody.appendChild(row);
+});
+const totalRow = document.createElement('tr');
+const totalSeller = SELLER.reduce((a, b) => a + b, 0);
+const totalVendor = VENDOR_EST[0] * 17;
+const totalCombined = totalSeller + totalVendor;
+const totalDiff = totalCombined - OBJETIVO_DIARIO * 17;
+totalRow.innerHTML = `
+  <td class="td-total">Total 1–17</td>
+  <td class="td-total">${totalSeller.toLocaleString('es-ES')} €</td>
+  <td class="td-total td-partial">${totalVendor.toLocaleString('es-ES')} €</td>
+  <td class="td-total">${totalCombined.toLocaleString('es-ES')} €</td>
+  <td class="td-total td-below">${totalDiff.toLocaleString('es-ES')} €</td>
+  <td class="td-total">${totalCombined.toLocaleString('es-ES')} €</td>
+`;
+tbody.appendChild(totalRow);
+
+function getStyle(prop) {
+  return getComputedStyle(document.documentElement).getPropertyValue(prop).trim();
+}
+
+function initCharts() {
+  const textSec = getStyle('--text-sec') || '#5A5A5A';
+  const border = getStyle('--border') || '#E4E4E4';
+  const orange = '#FF9900';
+
+  Chart.defaults.font = { family: 'Poppins, system-ui, sans-serif', size: 11 };
+  Chart.defaults.color = textSec;
+
+  new Chart(document.getElementById('dailyChart'), {
+    data: {
+      labels,
+      datasets: [
+        {
+          type: 'bar',
+          label: 'Combinado diario',
+          data: combined,
+          backgroundColor: combined.map(v => v >= OBJETIVO_DIARIO ? 'rgba(255,153,0,0.7)' : 'rgba(255,153,0,0.4)'),
+          borderColor: combined.map(v => v >= OBJETIVO_DIARIO ? orange : 'rgba(255,153,0,0.6)'),
+          borderWidth: 1,
+          borderRadius: 3,
+        },
+        {
+          type: 'line',
+          label: 'Objetivo diario 33.333€',
+          data: Array(17).fill(OBJETIVO_DIARIO),
+          borderColor: 'rgba(192,57,43,0.7)',
+          borderWidth: 2,
+          borderDash: [4, 3],
+          pointRadius: 0,
+          fill: false,
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index' },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toLocaleString('es-ES')} €` } }
+      },
+      scales: {
+        x: { grid: { color: border, drawBorder: false }, ticks: { maxRotation: 45 } },
+        y: { grid: { color: border, drawBorder: false }, ticks: { callback: v => v >= 1000 ? (v/1000).toFixed(0) + 'k €' : v + ' €' }, min: 0 }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('cumulChart'), {
+    data: {
+      labels,
+      datasets: [
+        {
+          type: 'line',
+          label: 'Acumulado objetivo',
+          data: cumObj,
+          borderColor: 'rgba(192,57,43,0.6)',
+          borderWidth: 2,
+          borderDash: [4, 3],
+          pointRadius: 0,
+          fill: false,
+        },
+        {
+          type: 'line',
+          label: 'Acumulado real',
+          data: cumReal,
+          borderColor: orange,
+          borderWidth: 2.5,
+          pointRadius: 3,
+          pointBackgroundColor: orange,
+          fill: { target: 0, above: 'rgba(255,153,0,0.15)', below: 'rgba(192,57,43,0.08)' },
+        },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index' },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${Math.round(ctx.parsed.y).toLocaleString('es-ES')} €` } }
+      },
+      scales: {
+        x: { grid: { color: border, drawBorder: false }, ticks: { maxRotation: 45 } },
+        y: { grid: { color: border, drawBorder: false }, ticks: { callback: v => (v/1000).toFixed(0) + 'k €' }, min: 0 }
+      }
+    }
+  });
+}
+
+if (document.fonts) { document.fonts.ready.then(initCharts); } else { initCharts(); }
+</script>
